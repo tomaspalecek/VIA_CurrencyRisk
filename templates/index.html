@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Risk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../static/Chart.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            margin: auto;
+            width: 99%;
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a:active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #main {
+            width: 99%;
+            margin: auto;
+            background-color: white;
+            text-align: center;
+        }
+
+        #chart {
+            width: 60%;
+            height: 80%;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+{#<h1>Currency Risk</h1>#}
+<div class="topnav">
+    <a href="">Data Analysis</a>
+    <a href="line">My Portfolio</a>
+    <a href="#about">About</a>
+    <a href="#about">About</a>
+</div>
+</div>
+<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<div id="main">
+    <h1>
+        {{ title }}
+    </h1>
+
+
+    <div id="chart">
+        <canvas id="stockChart" width="600" height="400"></canvas>
+    </div>
+
+
+    <form method="POST">
+        <input type="text" name="from" placeholder="From Currency">
+        <input type="text" name="to" placeholder="To Currency">
+        <input type="text" name="stock" placeholder="Stock Symbol">
+        <input type="submit" name="exchange_b" value="Exchange Rate">
+        <input type="submit" name="stock_b" value="Stock Price">
+        <input type="submit" name="stock_foreign_b" value="Stock in Foreign Currency">
+        <input type="submit" name="stock_currency_b" value="Stock Currency Risk">
+    </form>
+
+
+    <script>
+        var ctx = document.getElementById("stockChart").getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for item in labels %}
+                        "{{ item }}",
+                    {% endfor %},
+
+                ],
+                datasets: [
+                    {
+                    {#label: '# of Votes',#}
+                    data: [
+                        {% for item in values %}
+                            {{ item }},
+                        {% endfor %}],
+                    fill: false,
+
+                    {#backgroundColor: [#}
+                    {#    'rgba(40, 180, 99, 0.2)'#}
+                    {#],#}
+                    borderColor: [
+                        'rgba(40, 180, 99, 1.0)',
+                    ],
+                    borderWidth: 1
+                },
+                    {
+                    {#label: '# of Votes',#}
+                    data: [
+                        {% for item in values2 %}
+                            {{ item }},
+                        {% endfor %}],
+                    fill: false,
+
+                    {#backgroundColor: [#}
+                    {#    'rgba(40, 180, 99, 0.2)'#}
+                    {#],#}
+                    borderColor: [
+                        'rgba(255,0,0, 1.0)',
+                    ],
+                    borderWidth: 1
+                }
+
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                },
+
+
+                elements: {
+                    point: {
+                        radius: 0.4
+                    },
+                    line: {
+                        tension: 0, // disables bezier curves
+                    }
+
+                },
+
+                legend: {
+                    display: false
+                }
+
+
+            }
+        });
+
+
+    </script>
+
+
+</div>
+
+</body>
+</html>
