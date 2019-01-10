@@ -28,7 +28,7 @@ def stock_data_foreign(stock_symbol,to_symbol):
     currency_labels,currency_values = currency_data('USD',to_symbol)
 
     risk_values = [float(a) * float(b) for a, b in zip(stock_values, currency_values)]
-    risk_values = map(str,risk_values)
+    risk_values = list(map(str,risk_values))
     return stock_labels,risk_values
 
 
@@ -38,13 +38,13 @@ def stock_data_currency_risk(stock_symbol, to_symbol):
     currency_labels, currency_values = currency_data('USD', to_symbol)
 
     risk_values = [float(a) * float(b) for a, b in zip(stock_values, currency_values)]
-    risk_values = map(str, risk_values)
+    risk_values = list(map(str, risk_values))
 
     current_rate = float(currency_values[-1])
     # current_rate = 10
 
     current_values = [current_rate*float(a) for a in stock_values]
-    current_values = map(str,current_values)
+    current_values = list(map(str,current_values))
 
 
     return stock_labels, risk_values, current_values

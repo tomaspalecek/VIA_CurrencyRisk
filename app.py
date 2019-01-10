@@ -33,29 +33,56 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/stock/<stock_name>/all',methods=['GET'])
-def stock_all(stock_name):
+@app.route('/cur',methods=['GET'])
+def cur_all():
+    from_cur = request.args.get('from')
+    to_cur = request.args.get('to')
+    return jsonify(currency_data(from_cur,to_cur))
+
+@app.route('/cur/today',methods=['GET'])
+def cur_today():
+    from_cur = request.args.get('from')
+    to_cur = request.args.get('to')
+    return jsonify(currency_data(from_cur,to_cur)[1][-1])
+
+
+@app.route('/stock',methods=['GET'])
+def stock_all():
+    stock_name = request.args.get('symbol')
     return jsonify(stock_data(stock_name))
 
-@app.route('/stock/<stock_name>/todayprice',methods=['GET'])
-def stock_today(stock_name):
-    return jsonify(stock_data(stock_name)[1][-1])
+@app.route('/stock/cur',methods=['GET'])
+def stock_cur():
+    stock_name = request.args.get('symbol')
+    stock_cur = request.args.get('cur')
+    data = stock_data_foreign(stock_name,stock_cur)
+    return jsonify(data)
 
-@app.route('/stockcurrency/<stock_name>/<currency>/all', methods=['GET'])
-def stock_currency(stock_name,currency):
-    return jsonify(stock_data_foreign(stock_name,currency))
-
-@app.route('/stockcurrency/<stock_name>/<currency>/today', methods=['GET'])
-def stock_currency_today(stock_name,currency):
-    return jsonify(stock_data_foreign(stock_name,currency)[1][-1])
-
-@app.route('/stockcurrencyrisk/<stock_name>/<currency>/all', methods=['GET'])
-def stock_currency_risk_all(stock_name,currency):
-
-    return jsonify(stock_data_currency_risk(stock_name, currency)[0:1])
+@app.route('/stock/risk',methods=['GET'])
+def stock_risk():
+    stock_name = request.args.get('symbol')
+    stock_cur = request.args.get('cur')
+    data = stock_data_currency_risk(stock_name,stock_cur)
+    return jsonify(data)
 
 
 
+
+# @app.route('/stockcurrency/<stock_name>/<currency>/all', methods=['GET'])
+# def stock_currency(stock_name,currency):
+#     return jsonify(stock_data_foreign(stock_name,currency))
+#
+# @app.route('/stockcurrency/<stock_name>/<currency>/today', methods=['GET'])
+# def stock_currency_today(stock_name,currency):
+#     return jsonify(stock_data_foreign(stock_name,currency)[1][-1])
+#
+# @app.route('/stockcurrencyrisk/<stock_name>/<currency>/all', methods=['GET'])
+# def stock_currency_risk_all(stock_name,currency):
+#
+#     return jsonify(stock_data_currency_risk(stock_name, currency)[0:1])
+#
+#
+#
 
 
 
