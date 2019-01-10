@@ -37,33 +37,41 @@ def about():
 def cur_all():
     from_cur = request.args.get('from')
     to_cur = request.args.get('to')
-    return jsonify(currency_data(from_cur,to_cur))
+    data = currency_data(from_cur,to_cur)
+    dict_data = {'dates':data[0],'values':data[1]}
+    return jsonify(dict_data)
 
 @app.route('/cur/today',methods=['GET'])
 def cur_today():
     from_cur = request.args.get('from')
     to_cur = request.args.get('to')
-    return jsonify(currency_data(from_cur,to_cur)[1][-1])
+    data=currency_data(from_cur,to_cur)[1][-1]
+    dict_data = {'value':data}
+    return jsonify(dict_data)
 
 
 @app.route('/stock',methods=['GET'])
 def stock_all():
     stock_name = request.args.get('symbol')
-    return jsonify(stock_data(stock_name))
+    data = stock_data(stock_name)
+    dict_data = dict_data = {'dates':data[0],'values':data[1]}
+    return jsonify(dict_data)
 
 @app.route('/stock/cur',methods=['GET'])
 def stock_cur():
     stock_name = request.args.get('symbol')
     stock_cur = request.args.get('cur')
     data = stock_data_foreign(stock_name,stock_cur)
-    return jsonify(data)
+    dict_data = {'dates': data[0], 'values': data[1]}
+    return jsonify(dict_data)
 
 @app.route('/stock/risk',methods=['GET'])
 def stock_risk():
     stock_name = request.args.get('symbol')
     stock_cur = request.args.get('cur')
     data = stock_data_currency_risk(stock_name,stock_cur)
-    return jsonify(data)
+    dict_data = {'dates': data[0], 'values_cont': data[1],'values_cur': data[2]}
+    return jsonify(dict_data)
 
 
 
