@@ -4,6 +4,8 @@
     <title>Currency Risk</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+
     <script src="../static/Chart.js"></script>
     <style>
         h1 {
@@ -42,6 +44,7 @@
             color: white;
         }
 
+
         #main {
             width: 99%;
             margin: auto;
@@ -61,18 +64,24 @@
 {#<h1>Currency Risk</h1>#}
 <div class="topnav">
     <a href="">Data Analysis</a>
-    <a href="line">My Portfolio</a>
-    <a href="#about">About</a>
-    <a href="#about">About</a>
+{#    <a href="line">My Portfolio</a>#}
+    <a href="about">About project</a>
+    <a href="#about">Swagger</a>
 </div>
 </div>
-<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 
 <div id="main">
     <h1>
         {{ title }}
     </h1>
+
+    <span style="color:green">
+        {{ legend[0] }}
+    </span>
+    <span style="color:red">
+        {{ legend[1] }}
+    </span>
 
 
     <div id="chart">
@@ -105,7 +114,7 @@
                 ],
                 datasets: [
                     {
-                    {#label: '# of Votes',#}
+                    label: 'Price',
                     data: [
                         {% for item in values %}
                             {{ item }},
@@ -118,10 +127,10 @@
                     borderColor: [
                         'rgba(40, 180, 99, 1.0)',
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 },
                     {
-                    {#label: '# of Votes',#}
+                    label: 'Price',
                     data: [
                         {% for item in values2 %}
                             {{ item }},
@@ -134,7 +143,7 @@
                     borderColor: [
                         'rgba(255,0,0, 1.0)',
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 }
 
                 ]

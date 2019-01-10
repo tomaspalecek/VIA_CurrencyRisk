@@ -1,6 +1,7 @@
 import requests
 
 API_KEY = '3VN6MMFYXUT6XSNZ'
+API_KEY_OPEN_RATES = '74a967c65c5c4595acd9c3fd66ed39a4'
 
 def stock_data(stock_symbol):
     r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stock_symbol+'&apikey=' + API_KEY)
@@ -51,6 +52,7 @@ def stock_data_currency_risk(stock_symbol, to_symbol):
 
 def currency_data(from_symbol,to_symbol):
     r = requests.get('https://www.alphavantage.co/query?function=FX_DAILY&from_symbol='+from_symbol+'&to_symbol='+to_symbol+'&apikey=' + API_KEY)
+    # r = requests.get('https://openexchangerates.org/api/latest.json?app_id=' + API_KEY_OPEN_RATES)
     data = {}
     if (r.status_code == 200):
         data = r.json()['Time Series FX (Daily)']
